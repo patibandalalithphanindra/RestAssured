@@ -14,12 +14,12 @@ public class DeleteBookingTests extends BaseTestBooking {
         // Get Booking Id of new booking
         int id = response.jsonPath().getInt("bookingid");
 
-        Response deletedResponse = RestAssured.given().auth().preemptive().basic("admin", "password123").delete("https://restful-booker.herokuapp.com/booking/" + id);
+        Response deletedResponse = RestAssured.given(specification).auth().preemptive().basic("admin", "password123").delete("/booking/" + id);
         deletedResponse.print();
 
         Assert.assertEquals(deletedResponse.getStatusCode(), 201, "Status code should be 201, but it isn't");
 
-        Response responseGet = RestAssured.given().get("https://restful-booker.herokuapp.com/booking/" + id);
+        Response responseGet = RestAssured.given(specification).get("/booking/" + id);
         responseGet.print();
 
         Assert.assertEquals(responseGet.statusCode(), 404);

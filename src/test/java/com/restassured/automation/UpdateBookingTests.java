@@ -32,13 +32,13 @@ public class UpdateBookingTests extends BaseTestBooking {
         body.put("additionalneeds", "pen");
 
         Response responseUpdate = RestAssured
-                .given()
+                .given(specification)
                 .auth()
                 .preemptive()
                 .basic("admin","password123")
                 .contentType(ContentType.JSON)
                 .body(body.toString())
-                .put("https://restful-booker.herokuapp.com/booking/" + id);
+                .put("/booking/" + id);
 
         Assert.assertEquals(responseUpdate.getStatusCode(), 200, "Response status should be 200");
 

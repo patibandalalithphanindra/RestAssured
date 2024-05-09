@@ -28,13 +28,13 @@ public class PatchBookingTests extends BaseTestBooking {
         body.put("bookingdates", bookingdates);
 
         Response responseUpdate = RestAssured
-                .given()
+                .given(specification)
                 .auth()
                 .preemptive()
                 .basic("admin","password123")
                 .contentType(ContentType.JSON)
                 .body(body.toString())
-                .patch("https://restful-booker.herokuapp.com/booking/" + id);
+                .patch("/booking/" + id);
 
         Assert.assertEquals(responseUpdate.getStatusCode(), 200, "Response status should be 200");
 
